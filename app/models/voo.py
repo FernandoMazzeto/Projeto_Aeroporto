@@ -9,9 +9,9 @@ class Voo(Base):
     origem_id = Column(Integer, ForeignKey("aeroportos.id"), nullable=False)
     destino_id = Column(Integer, ForeignKey("aeroportos.id"), nullable=False)
     data_partida = Column(DateTime, nullable=False)
-    duracao = Column(String, nullable=False)  # Ex: "2h30min"
+    duracao = Column(String, nullable=False)  
     companhia = Column(String, nullable=False)
-    preco = Column(Integer, nullable=False)  # em centavos ou reais
+    preco = Column(Integer, nullable=False) 
 
     origem = relationship("Aeroporto", foreign_keys=[origem_id])
     destino = relationship("Aeroporto", foreign_keys=[destino_id])

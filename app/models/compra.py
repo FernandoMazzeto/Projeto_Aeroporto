@@ -11,8 +11,8 @@ class Compra(Base):
     usuario_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
     voo_id = Column(Integer, ForeignKey("voos.id"), nullable=False)
     data_compra = Column(DateTime, default=datetime.utcnow)
-    localizador = Column(String, unique=True, default=lambda: str(uuid4()))  # Novo campo
-    tickets = Column(JSON, default=lambda: [str(uuid4())])  # Novo campo (array de tickets)
+    localizador = Column(String, unique=True, default=lambda: str(uuid4()))  
+    tickets = Column(JSON, default=lambda: [str(uuid4())])  
 
     usuario = relationship("Usuario")
     voo = relationship("Voo")

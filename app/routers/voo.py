@@ -16,15 +16,13 @@ def listar_voos(
     data_partida: datetime = Query(..., description="Data no formato YYYY-MM-DD"),
     db: Session = Depends(get_db)
 ):
-    """
-    **Demanda Item 6**: Retorna todos os voos para a rota e data especificadas.
-    """
+    
     try:
         voos = db.query(Voo).filter(
             Voo.origem_id == origem_id,
             Voo.destino_id == destino_id,
             Voo.data_partida >= data_partida,
-            Voo.data_partida < data_partida + timedelta(days=1)  # Filtra por 24h
+            Voo.data_partida < data_partida + timedelta(days=1)  
         ).all()
         
         if not voos:
@@ -55,7 +53,7 @@ def pesquisar_voos(
         voos = db.query(Voo).filter(
             Voo.origem_id == origem_id,
             Voo.destino_id == destino_id,
-            Voo.data_partida >= datetime.now()  # Só voos futuros
+            Voo.data_partida >= datetime.now()  
         ).order_by(
             Voo.preco
         ).limit(

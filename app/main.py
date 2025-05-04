@@ -7,10 +7,8 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Criação das tabelas no banco de dados ao iniciar
 criar_tabelas()
 
-# Registro das rotas
 app.include_router(usuario.router)
 app.include_router(sessao.router)
 app.include_router(aeroporto.router)

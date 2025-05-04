@@ -8,21 +8,18 @@ from passlib.context import CryptContext
 import uuid
 from datetime import datetime, timedelta
 
-# Configurações
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-TEMPO_EXPIRACAO_MINUTOS = 20  # Tempo de expiração reduzido para 20 minutos
+TEMPO_EXPIRACAO_MINUTOS = 20  
 
 router = APIRouter(prefix="/sessao", tags=["Sessão"])
 
 @router.post("/login", response_model=SessaoResponse)
 def login(dados: SessaoCreate, db: Session = Depends(get_db)):
-    # Verifica credenciais
     usuario = db.query(Usuario).filter(Usuario.email == dados.email).first()
     
     if not usuario or not pwd_context.verify(dados.senha, usuario.senha):
         raise HTTPException(status_code=401, detail="Credenciais inválidas")
 
-    # Cria nova sessão com tempo de expiração controlado
     chave = str(uuid.uuid4())
     data_atual = datetime.utcnow()
     sessao = Sessao(
@@ -56,7 +53,7 @@ def logout(dados: SessaoValida, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Sessão não encontrada ou expirada")
     
     sessao.ativa = False
-    sessao.expira_em = datetime.utcnow()  # Força expiração imediata
+    sessao.expira_em = datetime.utcnow()  
     db.commit()
     return {"mensagem": "Logout realizado com sucesso"}
 
@@ -71,7 +68,6 @@ def validar_sessao(dados: SessaoValida, db: Session = Depends(get_db)):
     if not sessao:
         raise HTTPException(status_code=401, detail="Sessão inválida ou expirada")
     
-    # Calcula tempo restante
     tempo_restante = sessao.expira_em - datetime.utcnow()
     minutos_restantes = round(tempo_restante.total_seconds() / 60)
     

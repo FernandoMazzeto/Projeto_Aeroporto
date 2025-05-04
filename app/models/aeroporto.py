@@ -5,7 +5,7 @@ class Aeroporto(Base):
     __tablename__ = "aeroportos"
 
     id = Column(Integer, primary_key=True, index=True)
-    sigla = Column(String(3), unique=True, nullable=False)  # Ex: GRU, GIG
+    sigla = Column(String(3), unique=True, nullable=False)  
     nome = Column(String, nullable=False)
     cidade = Column(String, nullable=False)
     estado = Column(String(2), nullable=False)

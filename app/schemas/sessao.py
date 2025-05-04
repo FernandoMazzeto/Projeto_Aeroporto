@@ -14,7 +14,7 @@ class SessaoCreate(BaseModel):
 
 class SessaoResponse(BaseModel):
     chave: str
-    expira_em: datetime  # Novo campo
+    expira_em: datetime  
 
 class SessaoValida(BaseModel):
     chave: str

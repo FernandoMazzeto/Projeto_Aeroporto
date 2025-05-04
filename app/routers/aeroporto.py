@@ -13,6 +13,5 @@ def listar_aeroportos(db: Session = Depends(get_db)):
 
 @router.get("/por-origem/{origem_id}", response_model=list[AeroportoResponse])
 def aeroportos_por_origem(origem_id: int, db: Session = Depends(get_db)):
-    # Busca aeroportos de destino a partir da origem_id
     destinos = db.query(Voo.destino_id).filter(Voo.origem_id == origem_id).distinct()
     return db.query(Aeroporto).filter(Aeroporto.id.in_(destinos)).all()
