@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from datetime import datetime, timedelta
 from app.database import Base
 
 class Sessao(Base):
@@ -11,6 +11,7 @@ class Sessao(Base):
     usuario_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
     ip = Column(String, nullable=False)
     criada_em = Column(DateTime, default=datetime.utcnow)
-    ativa = Column(String, default="S")  # 'S' para sim, 'N' para não
+    expira_em = Column(DateTime, nullable=False)  
+    ativa = Column(Boolean, default=True)
 
     usuario = relationship("Usuario")

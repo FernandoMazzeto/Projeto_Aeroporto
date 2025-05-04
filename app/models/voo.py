@@ -1,5 +1,3 @@
-# app/models/voo.py
-
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
